@@ -73,27 +73,7 @@ Get a glimpse of Budget Mate’s clean and modern interface! (Replace the placeh
 
 | Transaction List | Add Transaction | Monthly Analysis |
 |:---------------:|:---------------:|:----------------:|
-| ![Transaction List](([https://github.com/zahura0/Budget_Mate/blob/f071e9a02226dbaa8a8de061a724cf6ed2fccedb/screenshots/add_transaction.png](https://raw.githubusercontent.com/zahura0/Budget_Mate/main/screenshots/transaction_list.png))) | ![Add Transaction](https://raw.githubusercontent.com/yourusername/budget-mate/main/screenshots/add_transaction.png) | ![Monthly Analysis](https://raw.githubusercontent.com/yourusername/budget-mate/main/screenshots/monthly_analysis.png) |
-
-### How to Add Your Screenshots
-
-1. **Upload Images**:
-   - Create a `screenshots/` folder in your repository.
-   - Add your images (e.g., `transaction_list.png`, `add_transaction.png`, `monthly_analysis.png`) to this folder.
-   - Push the images to GitHub.
-
-2. **Get Image URLs**:
-   - Navigate to each image in your GitHub repository.
-   - Click the image, then select `Raw` to get the URL (e.g., `https://raw.githubusercontent.com/yourusername/budget-mate/main/screenshots/your_image.png`).
-   - Alternatively, upload images to an external host like Imgur and copy the direct URL (ending in `.png`, `.jpg`, etc.).
-
-3. **Update the README**:
-   - Replace the placeholder URLs in the table above with your actual image URLs.
-   - Use Markdown syntax: `![Alt text](your-image-url)`.
-
-4. **Test the README**:
-   - Push the updated `README.md` to GitHub.
-   - Check the rendered view on GitHub to ensure images load correctly.
+| ![Transaction List](https://raw.githubusercontent.com/zahura0/Budget_Mate/master/screenshots/transaction_list.png) | ![Add Transaction](https://raw.githubusercontent.com/zahura0/Budget_Mate/master/screenshots/add_transaction.png) | ![Monthly Analysis](https://raw.githubusercontent.com/zahura0/Budget_Mate/master/screenshots/monthly_analysis.png) |
 
 ## 🛠️ Tech Stack
 
