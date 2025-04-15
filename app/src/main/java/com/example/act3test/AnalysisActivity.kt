@@ -36,16 +36,14 @@ class AnalysisActivity : AppCompatActivity() {
         analysisText = findViewById(R.id.analysisText)
         pieChart = findViewById(R.id.pieChart)
 
+        // Initialize TextViews
         totalIncomeText = findViewById(R.id.totalIncomeText)
         totalExpenseText = findViewById(R.id.totalExpenseText)
         budgetText = findViewById(R.id.budgetText)
         availableFundsText = findViewById(R.id.availableFundsText)
 
-        // Load fonts
+        // Set custom font
         val poppinsMedium = ResourcesCompat.getFont(this, R.font.poppins_medium)
-        val poppinsBold = ResourcesCompat.getFont(this, R.font.poppins_bold)
-
-        // Apply medium font to analysis summary
         analysisText.typeface = poppinsMedium
 
         viewModel.transactions.observe(this) { transactions ->
@@ -71,6 +69,7 @@ class AnalysisActivity : AppCompatActivity() {
                 summaryText.append(categoryLine)
                 val end = summaryText.length
 
+                // Highlight only the numeric amount (after "LKR ")
                 val amountStart = summaryText.indexOf(formattedAmount, start)
                 if (amountStart != -1) {
                     summaryText.setSpan(
@@ -90,20 +89,24 @@ class AnalysisActivity : AppCompatActivity() {
 
             analysisText.text = summaryText
 
+            // Calculate totals
             val totalIncome = transactions.filter { it.type == "income" }.sumOf { it.amount }
             val totalExpense = transactions.filter { it.type == "expense" }.sumOf { it.amount }
             val availableFunds = budget + totalIncome - totalExpense
 
+            // Format amounts with thousands separator
             val formattedBudget = decimalFormat.format(budget)
             val formattedIncome = decimalFormat.format(totalIncome)
             val formattedExpense = decimalFormat.format(totalExpense)
             val formattedAvailable = decimalFormat.format(availableFunds)
 
+            // Color setup
             val incomeColor = ContextCompat.getColor(this, R.color.income_border)
             val expenseColor = ContextCompat.getColor(this, R.color.expense_border)
             val budgetColor = ContextCompat.getColor(this, R.color.warning)
             val availableFundsColor = if (availableFunds >= 0) Color.GREEN else Color.RED
 
+            // Create styled text for each metric
             fun createStyledText(prefix: String, amount: String, color: Int): SpannableString {
                 val fullText = "$prefix LKR $amount"
                 val spannable = SpannableString(fullText)
@@ -125,11 +128,13 @@ class AnalysisActivity : AppCompatActivity() {
                 return spannable
             }
 
+            // Set styled text for each card
             budgetText.text = createStyledText("💰 Monthly Budget:", formattedBudget, budgetColor)
             totalIncomeText.text = createStyledText("💵 Total Income:", formattedIncome, incomeColor)
             totalExpenseText.text = createStyledText("💸 Total Expense:", formattedExpense, expenseColor)
             availableFundsText.text = createStyledText("⚖️ Available Funds:", formattedAvailable, availableFundsColor)
 
+            // Pie chart setup
             val categoryColors = mapOf(
                 "Food" to ContextCompat.getColor(this, R.color.highlight_food_pie),
                 "Transport" to ContextCompat.getColor(this, R.color.highlight_transport_pie),
@@ -150,24 +155,20 @@ class AnalysisActivity : AppCompatActivity() {
                 sliceSpace = 3f
                 valueTextColor = Color.WHITE
                 valueTextSize = 14f
-                valueTypeface = poppinsBold // Pie value font
             }
 
             pieChart.apply {
                 data = PieData(dataSet)
                 setUsePercentValues(false)
                 setEntryLabelColor(Color.WHITE)
-                setEntryLabelTextSize(10f)
-                setEntryLabelTypeface(poppinsBold) // Entry label font
+                setEntryLabelTextSize(12f)
                 setCenterText("Spending\nBreakdown")
                 setCenterTextSize(18f)
                 setCenterTextColor(Color.WHITE)
-                setCenterTextTypeface(poppinsBold) // Center text font
                 setHoleColor(ContextCompat.getColor(this@AnalysisActivity, R.color.dark_grey))
                 description.isEnabled = false
                 legend.isEnabled = true
                 legend.textColor = Color.WHITE
-                legend.typeface = poppinsBold // Legend font
                 animateY(1000)
                 invalidate()
             }
