@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="expense_border">#F61B2B</color>
+    <color name="income_border">#A7EC4F</color>
+    <color name="purple_500">#6B48FF</color>
+    <color name="purple_700">#4A31B8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#1A1A1A</color>
+    <color name="grey_100">#F8FAFC</color>
+    <color name="grey_400">#CBD5E0</color>
+    <color name="grey_600">#64748B</color>
+    <color name="grey_800">#2D3748</color>
+    <color name="teal_200">#5EEAD4</color>
+    <color name="teal_700">#0D9488</color>
+    <color name="success">#10B981</color>
+    <color name="warning">#F59E0B</color>
+    <color name="error">#EF4444</color>
+    <color name="dark_grey">#131313</color>
+    <color name="light_grey">#B0BEC5</color>
+
+    <color name="highlight_food">#8040C4FF</color>     <!-- Light Blue -->
+    <color name="highlight_transport">#80FFCA28</color> <!-- Amber -->
+    <color name="highlight_bills">#80EF5350</color>     <!-- Soft Red -->
+    <color name="highlight_entertainment">#8066BB6A</color> <!-- Green -->
+
+    <color name="highlight_food_pie">#40C4FF</color>     <!-- Light Blue -->
+    <color name="highlight_transport_pie">#FFCA28</color> <!-- Amber -->
+    <color name="highlight_bills_pie">#EF5350</color>     <!-- Soft Red -->
+    <color name="highlight_entertainment_pie">#66BB6A</color> <!-- Green -->
+</resources>

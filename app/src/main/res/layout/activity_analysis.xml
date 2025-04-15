@@ -1,0 +1,137 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/dark_grey">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Summary Card - Added id for better reference -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/summaryCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/black">
+
+            <TextView
+                android:id="@+id/analysisText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/light_grey"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="16dp"
+                android:lineSpacingExtra="6dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Rest of your XML remains the same -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            android:layout_marginBottom="20dp">
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:padding="12dp"
+                android:background="@drawable/bg_chart_rounded"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Budget Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#1A1A1A">
+
+            <TextView
+                android:id="@+id/budgetText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:text="💰 Monthly Budget: LKR 0.00"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Income Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#1A1A1A">
+
+            <TextView
+                android:id="@+id/totalIncomeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:text="💵 Total Income: LKR 0.00"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Expense Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#1A1A1A">
+
+            <TextView
+                android:id="@+id/totalExpenseText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:text="💸 Total Expense: LKR 0.00"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Available Funds Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#1A1A1A"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/availableFundsText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:text="⚖️ Available Funds: LKR 0.00"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

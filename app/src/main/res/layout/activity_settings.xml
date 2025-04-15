@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/dark_grey">
+
+    <!-- Box with shadow -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        card_view:cardElevation="8dp"
+        card_view:cardCornerRadius="16dp"
+        card_view:cardBackgroundColor="@color/dark_grey"
+        card_view:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Budget Input Field -->
+            <EditText
+                android:id="@+id/budgetInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Monthly Budget"
+                android:inputType="numberDecimal"
+                android:padding="14dp"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_edittext_bg"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/saveBudgetBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Budget"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_button_bg"
+                android:padding="14dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

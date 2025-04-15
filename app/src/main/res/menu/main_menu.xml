@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_analysis"
+        android:icon="@drawable/ic_analysis"
+        android:title="Analysis" />
+
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings" />
+
+    <item
+        android:id="@+id/menu_export"
+        android:icon="@drawable/ic_export"
+        android:title="Export Data" />
+
+    <item
+        android:id="@+id/menu_import"
+        android:icon="@drawable/ic_import"
+        android:title="Import Data" />
+</menu>
