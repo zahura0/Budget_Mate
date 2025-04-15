@@ -174,7 +174,7 @@ class MainActivity : AppCompatActivity() {
                     data?.getSerializableExtra("transaction")?.let { transaction ->
                         val updatedTransaction = transaction as Transaction
                         viewModel.updateTransaction(updatedTransaction)
-                        Toast.makeText(this, "Transaction updated successfully", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this, "Transaction updated successfully", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
