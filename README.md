@@ -69,7 +69,7 @@ Follow these steps to set up and run Budget Mate on your local machine.
 
 ## 📸 Screenshots
 
-Get a glimpse of Budget Mate’s clean and modern interface! (Replace the placeholder URLs with your actual screenshot URLs.)
+Get a glimpse of Budget Mate’s clean and modern interface!
 
 | Transaction List | Add Transaction | Monthly Analysis |
 |:---------------:|:---------------:|:----------------:|
