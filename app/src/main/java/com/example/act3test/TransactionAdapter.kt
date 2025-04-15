@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class TransactionAdapter(
     private var transactions: List<Transaction>,
+    private val onShowEdit: (Transaction) -> Unit,
     private val onShowDeleteDialog: (Transaction) -> Unit
 ) : RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
@@ -22,6 +23,7 @@ class TransactionAdapter(
         val amountText: TextView = itemView.findViewById(R.id.amountText)
         val categoryText: TextView = itemView.findViewById(R.id.categoryText)
         val dateText: TextView = itemView.findViewById(R.id.dateText)
+        val editBtn: ImageButton = itemView.findViewById(R.id.editBtn)
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)
     }
 
@@ -34,7 +36,6 @@ class TransactionAdapter(
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val transaction = transactions[position]
         holder.titleText.text = transaction.title ?: "No Title"
-        // Format amount with "LKR" and two decimal places
         holder.amountText.text = "LKR ${String.format("%.2f", transaction.amount ?: 0.0)}"
         holder.categoryText.text = transaction.category ?: "No Category"
         holder.dateText.text = transaction.date ?: "No Date"
@@ -45,18 +46,17 @@ class TransactionAdapter(
             ContextCompat.getColor(holder.itemView.context, R.color.income_border)
         }
         val cardDrawable = GradientDrawable().apply {
-            setColor(ContextCompat.getColor(holder.itemView.context, android.R.color.transparent))
+            setColor(ContextCompat.getColor(holder.itemView.context, R.color.dark_grey)) // Matches #1E1E1E
             setStroke(3, borderColor)
             cornerRadius = 15f
         }
         holder.cardContainer.background = cardDrawable
-        (holder.itemView as? androidx.cardview.widget.CardView)?.background = null // Explicitly clear CardView background
+        (holder.itemView as? androidx.cardview.widget.CardView)?.background = null
 
-        // Add category highlight background
         val categoryBackground = GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
-            cornerRadius = 30f // 30dp radius
-            setPadding(10, 5, 10, 5) // Optional padding for better text spacing
+            cornerRadius = 30f
+            setPadding(10, 5, 10, 5)
         }
         when (transaction.category) {
             "Food" -> categoryBackground.setColor(ContextCompat.getColor(holder.itemView.context, R.color.highlight_food))
@@ -66,6 +66,10 @@ class TransactionAdapter(
             else -> categoryBackground.setColor(ContextCompat.getColor(holder.itemView.context, R.color.grey_600))
         }
         holder.categoryText.background = categoryBackground
+
+        holder.editBtn.setOnClickListener {
+            onShowEdit(transaction)
+        }
 
         holder.deleteBtn.setOnClickListener {
             onShowDeleteDialog(transaction)

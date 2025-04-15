@@ -34,6 +34,14 @@ class FinanceViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch { repository.saveTransactions(updatedList) }
     }
 
+    fun updateTransaction(updatedTransaction: Transaction) {
+        val updatedList = (_transactions.value ?: emptyList()).map {
+            if (it.id == updatedTransaction.id) updatedTransaction else it
+        }
+        _transactions.postValue(updatedList)
+        viewModelScope.launch { repository.saveTransactions(updatedList) }
+    }
+
     fun deleteTransaction(transaction: Transaction) {
         val updatedList = (_transactions.value ?: emptyList()).filter { it.id != transaction.id }
         _transactions.postValue(updatedList)

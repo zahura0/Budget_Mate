@@ -20,6 +20,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.act3test.UpdateTransactionActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -57,13 +58,21 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.transactionRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = TransactionAdapter(emptyList()) { transaction ->
-            showDeleteConfirmationDialog(transaction)
-        }
+        adapter = TransactionAdapter(
+            transactions = emptyList(),
+            onShowEdit = { transaction ->
+                val intent = Intent(this, UpdateTransactionActivity::class.java)
+                intent.putExtra("edit_transaction", transaction)
+                startActivityForResult(intent, EDIT_TRANSACTION_REQUEST)
+            },
+            onShowDeleteDialog = { transaction ->
+                showDeleteConfirmationDialog(transaction)
+            }
+        )
         recyclerView.adapter = adapter
 
         findViewById<FloatingActionButton>(R.id.addTransactionBtn).setOnClickListener {
-            startActivityForResult(Intent(this, AddTransactionActivity::class.java), 1)
+            startActivityForResult(Intent(this, AddTransactionActivity::class.java), ADD_TRANSACTION_REQUEST)
         }
 
         viewModel.transactions.observe(this) { transactions ->
@@ -108,7 +117,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
 
-        // Force show icons in overflow menu
         if (menu.javaClass.simpleName == "MenuBuilder") {
             try {
                 val method = menu.javaClass.getDeclaredMethod("setOptionalIconsVisible", Boolean::class.javaPrimitiveType)
@@ -121,7 +129,6 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -147,16 +154,29 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            data?.getSerializableExtra("transaction")?.let { transaction ->
-                val castedTransaction = transaction as Transaction
-                viewModel.addTransaction(castedTransaction)
-                val toastMessage = if (castedTransaction.type == "expense") {
-                    "Expense added successfully"
-                } else {
-                    "Income added successfully"
+        when (requestCode) {
+            ADD_TRANSACTION_REQUEST -> {
+                if (resultCode == RESULT_OK) {
+                    data?.getSerializableExtra("transaction")?.let { transaction ->
+                        val castedTransaction = transaction as Transaction
+                        viewModel.addTransaction(castedTransaction)
+                        val toastMessage = if (castedTransaction.type == "expense") {
+                            "Expense added successfully"
+                        } else {
+                            "Income added successfully"
+                        }
+                        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+                    }
                 }
-                Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+            }
+            EDIT_TRANSACTION_REQUEST -> {
+                if (resultCode == RESULT_OK) {
+                    data?.getSerializableExtra("transaction")?.let { transaction ->
+                        val updatedTransaction = transaction as Transaction
+                        viewModel.updateTransaction(updatedTransaction)
+                        Toast.makeText(this, "Transaction updated successfully", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
@@ -231,7 +251,6 @@ class MainActivity : AppCompatActivity() {
                     }
                     return@launch
                 }
-                // Filter out duplicates based on ID
                 val currentTransactions = viewModel.transactions.value ?: emptyList()
                 val newTransactions = transactions.filter { newTransaction ->
                     currentTransactions.none { it.id == newTransaction.id }
@@ -318,5 +337,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+        private const val ADD_TRANSACTION_REQUEST = 1
+        private const val EDIT_TRANSACTION_REQUEST = 2
     }
 }
