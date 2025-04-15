@@ -73,7 +73,7 @@ Get a glimpse of Budget Mate’s clean and modern interface! (Replace the placeh
 
 | Transaction List | Add Transaction | Monthly Analysis |
 |:---------------:|:---------------:|:----------------:|
-| ![Transaction List]((https://github.com/zahura0/Budget_Mate/blob/f071e9a02226dbaa8a8de061a724cf6ed2fccedb/screenshots/add_transaction.png)) | ![Add Transaction](https://raw.githubusercontent.com/yourusername/budget-mate/main/screenshots/add_transaction.png) | ![Monthly Analysis](https://raw.githubusercontent.com/yourusername/budget-mate/main/screenshots/monthly_analysis.png) |
+| ![Transaction List](([https://github.com/zahura0/Budget_Mate/blob/f071e9a02226dbaa8a8de061a724cf6ed2fccedb/screenshots/add_transaction.png](https://raw.githubusercontent.com/zahura0/Budget_Mate/main/screenshots/transaction_list.png))) | ![Add Transaction](https://raw.githubusercontent.com/yourusername/budget-mate/main/screenshots/add_transaction.png) | ![Monthly Analysis](https://raw.githubusercontent.com/yourusername/budget-mate/main/screenshots/monthly_analysis.png) |
 
 ### How to Add Your Screenshots
 
