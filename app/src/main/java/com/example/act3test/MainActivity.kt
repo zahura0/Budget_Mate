@@ -5,9 +5,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,14 +32,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.util.Calendar
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.view.LayoutInflater
 import android.view.WindowManager
+import android.widget.AdapterView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: TransactionAdapter
     private lateinit var viewModel: FinanceViewModel
+    private lateinit var yearSpinner: Spinner
+    private lateinit var monthSpinner: Spinner
+    private val months = listOf(
+        "All",
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    )
+
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         if (isGranted) {
             sendBudgetNotification()
@@ -75,6 +87,11 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(Intent(this, AddTransactionActivity::class.java), ADD_TRANSACTION_REQUEST)
         }
 
+        // Initialize spinners
+        yearSpinner = findViewById(R.id.yearSpinner)
+        monthSpinner = findViewById(R.id.monthSpinner)
+        setupSpinners()
+
         viewModel.transactions.observe(this) { transactions ->
             adapter.updateTransactions(transactions ?: emptyList())
             checkBudget()
@@ -82,6 +99,53 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
         requestPermissions()
+    }
+
+    private fun setupSpinners() {
+        // Year spinner
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        val years = listOf("All") + (currentYear - 10..currentYear).map { it.toString() }
+        val yearAdapter = ArrayAdapter(this, R.layout.spinner_item, years)
+        yearAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        yearSpinner.adapter = yearAdapter
+
+        // Month spinner
+        val monthAdapter = ArrayAdapter(this, R.layout.spinner_item, months)
+        monthAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        monthSpinner.adapter = monthAdapter
+
+        // Spinner listeners
+        yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: android.view.View?, position: Int, id: Long) {
+                val selectedYear = if (years[position] == "All") null else years[position].toInt()
+                updateFilter(selectedYear, getSelectedMonth())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: android.view.View?, position: Int, id: Long) {
+                val selectedMonth = if (months[position] == "All") null else position - 1 // 0-based month
+                updateFilter(getSelectedYear(), selectedMonth)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun getSelectedYear(): Int? {
+        val year = yearSpinner.selectedItem?.toString()
+        return if (year == "All") null else year?.toInt()
+    }
+
+    private fun getSelectedMonth(): Int? {
+        val month = monthSpinner.selectedItem?.toString()
+        return if (month == "All") null else months.indexOf(month) - 1 // 0-based month
+    }
+
+    private fun updateFilter(year: Int?, month: Int?) {
+        viewModel.setFilter(year, month)
     }
 
     private fun showDeleteConfirmationDialog(transaction: Transaction) {
@@ -174,7 +238,7 @@ class MainActivity : AppCompatActivity() {
                     data?.getSerializableExtra("transaction")?.let { transaction ->
                         val updatedTransaction = transaction as Transaction
                         viewModel.updateTransaction(updatedTransaction)
-                        //Toast.makeText(this, "Transaction updated successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Transaction updated successfully", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
