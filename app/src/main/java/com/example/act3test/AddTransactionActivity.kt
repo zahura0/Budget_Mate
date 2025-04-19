@@ -67,7 +67,7 @@ class AddTransactionActivity : AppCompatActivity() {
             }
         }
 
-        // Function to update backgrounds based on selected type
+        // Function to update backgrounds on selected type
         fun updateBackgrounds(isExpense: Boolean) {
             val colorRes = if (isExpense) R.color.expense_border else R.color.income_border
             val borderColor = ContextCompat.getColor(this, colorRes)
