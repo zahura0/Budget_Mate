@@ -28,7 +28,7 @@ Follow these steps to set up and run Budget Mate on your local machine.
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/budget-mate.git](https://github.com/zahura0/Budget_Mate.git
+   git clone https://github.com/zahura0/Budget_Mate.git
    cd budget-mate
    ```
 
