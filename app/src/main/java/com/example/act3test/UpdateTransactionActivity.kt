@@ -159,7 +159,7 @@ class UpdateTransactionActivity : AppCompatActivity() {
             )
             val resultIntent = Intent().putExtra("transaction", transaction)
             setResult(RESULT_OK, resultIntent)
-            Toast.makeText(this, "Transaction updated successfully", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Transaction updated successfully", Toast.LENGTH_SHORT).show()
             finish()
         }
     }
